@@ -1,0 +1,15 @@
+overwrite: true
+schema:
+  - "http://localhost:3001":
+documents: "components/**/*"
+generates:
+  components/types.d.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-files-modules"
+      - "typescript-document-nodes"
+      - "urql-introspection"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

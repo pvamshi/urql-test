@@ -1,0 +1,34 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Lorem Ipsum",
+      "text": "this is very a big post talking about nothing and still something to fill the text",
+      "views": 254,
+      "user_id": 123
+    },
+    {
+      "id": 2,
+      "title": "Sic Dolor amet",
+      "text": "I dont have any more words to speak, but somehow I am still speaking and surprisingly you are still reading",
+      "views": 65,
+      "user_id": 456
+    }
+  ],
+  "users": [
+    { "id": 123, "name": "John Doe" },
+    { "id": 456, "name": "Jane Doe" }
+  ],
+  "comments": [
+    {
+      "id": 987,
+      "post_id": 1,
+      "body": "Consectetur adipiscing elit"
+    },
+    {
+      "id": 995,
+      "post_id": 1,
+      "body": "Nam molestie pellentesque dui"
+    }
+  ]
+}
