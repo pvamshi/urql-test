@@ -274,7 +274,7 @@ export type AddPostMutation = (
   { __typename?: 'Mutation' }
   & { createPost?: Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id'>
+    & Pick<Post, 'id' | 'title' | 'text' | 'views' | 'user_id'>
   )> }
 );
 
@@ -332,8 +332,12 @@ declare module '*/PostsList.tsx' {
 
 export const AddPost = gql`
     mutation AddPost($title: String!, $text: String!) {
-  createPost(title: $title, text: $text, views: 0, user_id: 1) {
+  createPost(title: $title, text: $text, views: 0, user_id: 123) {
     id
+    title
+    text
+    views
+    user_id
   }
 }
     `;

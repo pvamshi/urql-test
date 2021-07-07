@@ -65,7 +65,7 @@ export default function AddPostModal({ closeModal }: AddPostProps) {
               disabled={addPostResult.fetching}
               onClick={() => {
                 addPost({ title, text }).then((d) => {
-                  // closeModal();
+                  closeModal();
                   console.log("done", d);
                 });
               }}
