@@ -1,24 +1,16 @@
 import Home from "@components/Home";
 import React from "react";
 
-import {
-  createClient,
-  Provider,
-  defaultExchanges,
-  fetchExchange,
-  dedupExchange,
-} from "urql";
-import { cacheExchange } from "@urql/exchange-graphcache";
-import { devtoolsExchange } from "@urql/devtools";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-const client = createClient({
-  url: "http://localhost:3001",
-  exchanges: [devtoolsExchange, ...defaultExchanges],
+const client = new ApolloClient({
+  uri: "http://localhost:3001",
+  cache: new InMemoryCache(),
 });
 export default function App() {
   return (
-    <Provider value={client}>
+    <ApolloProvider client={client}>
       <Home />
-    </Provider>
+    </ApolloProvider>
   );
 }
