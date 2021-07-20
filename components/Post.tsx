@@ -1,6 +1,6 @@
 import { Box, Heading } from "@chakra-ui/react";
 import React from "react";
-import { gql, useQuery } from "urql";
+import { gql, useQuery } from "@apollo/client";
 
 import { GetPostQuery, GetPostQueryVariables } from "./types";
 
@@ -16,8 +16,7 @@ const query = gql`
 
 export type PostProps = { postId: string };
 export default function Post({ postId }: PostProps) {
-  const [{ data }] = useQuery<GetPostQuery, GetPostQueryVariables>({
-    query,
+  const { data } = useQuery<GetPostQuery, GetPostQueryVariables>(query, {
     variables: { id: postId },
   });
 

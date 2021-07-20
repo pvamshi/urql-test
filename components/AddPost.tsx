@@ -11,7 +11,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { gql, useMutation } from "urql";
+import { gql, useMutation } from "@apollo/client";
 import { AddPostMutation, AddPostMutationVariables } from "./types";
 
 const AddPost = gql`
@@ -31,10 +31,20 @@ export type AddPostProps = {
 export default function AddPostModal({ closeModal }: AddPostProps) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [addPostResult, addPost] = useMutation<
-    AddPostMutation,
-    AddPostMutationVariables
-  >(AddPost);
+  const [addPost, addPostResult] = useMutation(AddPost, {
+    onCompleted() {
+      closeModal();
+    },
+    refetchQueries: ["GetPosts"],
+    // update: (cache, mutationResult) => {
+    //   const newPost = mutationResult.data.createPost;
+    //   const data: { Posts: {}[] } | null = cache.readQuery({ query });
+    //   cache.writeQuery({
+    //     query,
+    //     data: { Posts: [...(data ? data.Posts : []), newPost] },
+    //   });
+    // },
+  });
 
   return (
     <Modal isOpen={true} onClose={closeModal}>
@@ -62,20 +72,17 @@ export default function AddPostModal({ closeModal }: AddPostProps) {
             <Button
               colorScheme="blue"
               mr={3}
-              disabled={addPostResult.fetching}
+              disabled={addPostResult.loading}
               onClick={() => {
-                addPost({ title, text }).then((d) => {
-                  closeModal();
-                  console.log("done", d);
-                });
+                addPost({ variables: { title, text } });
               }}
             >
-              {addPostResult.fetching ? "Adding ..." : "Submit"}
+              {addPostResult.loading ? "Adding ..." : "Submit"}
             </Button>
             <Button
               variant="ghost"
               onClick={closeModal}
-              disabled={addPostResult.fetching}
+              disabled={addPostResult.loading}
             >
               Cancel
             </Button>
