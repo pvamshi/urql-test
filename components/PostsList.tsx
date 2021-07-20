@@ -1,6 +1,5 @@
-import { Link, List } from "@chakra-ui/react";
+import { Link, List, ListItem } from "@chakra-ui/react";
 import { GetPostsQuery, GetPostsQueryVariables } from "@components/types";
-import ListItem from "@material-ui/core/ListItem";
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 
